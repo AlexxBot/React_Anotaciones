@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure React samples</title>
+</head>
+
+<body>
+    <div class="react-container">
+        <section id="baked-salmon">
+            <h1>Baked Salmon</h1>
+            <ul class="ingredients">
+                <li>1 lb Salmon</li>
+                <li>1 cup Pine Nuts</li>
+                60 | Chapter 4: Pure React2 Lindsey Simon, “Minimizing Browser Reflow”.
+                3 Steven Luscher, “Building User Interfaces with Facebook’s React”, Super VanJS 2013.
+                <li>2 cups Butter Lettuce</li>
+                <li>1 Yellow Squash</li>
+                <li>1/2 cup Olive Oil</li>
+                <li>3 cloves of Garlic</li>
+            </ul>
+            <section class="instructions">
+                <h2>Cooking Instructions</h2>
+                <p>Preheat the oven to 350 degrees.</p>
+                <p>Spread the olive oil around a glass baking dish.</p>
+                <p>Add the salmon, garlic, and pine nuts to the dish.</p>
+                <p>Bake for 15 minutes.</p>
+                <p>Add the yellow squash and put back in the oven for 30 mins.</p>
+                <p>Remove from oven and let cool for 15 minutes.
+                    Add the lettuce and serve.</p>
+            </section>
+        </section>
+
+    </div>
+    <div id="react-container">
+
+    </div>
+
+    <!-- React library & ReactDOM-->
+    <script src="https://unpkg.com/react@15.4.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.4.2/dist/react-dom.js"></script>
+    <script>
+        // Pure React and JavaScript code
+
+        /* var dishes = {
+            $$typeof: Symbol(React.element),
+            "type": "h1",
+            "key": null,
+            "ref": null,
+            "props": {"children": "Baked Salmon"},
+            "_owner": null,
+            "_store": {}
+        } */
+
+
+        /* var dish = React.createElement("h1", {id: "recipe-0", 'data-type': "title"}, "Baked Salmon")
+        ReactDOM.render(dish, document.getElementById('react-container'))
+
+        var ingredientes = React.createElement(
+            "ul",
+            null,
+            React.createElement('li', null, "1 lb Salmon"),
+            React.createElement('li', null, "1 cup Pine Nuts"),
+            React.createElement('li', null, "2 cups butter Lettuce"),
+
+        )
+        ReactDOM.render(ingredientes, document.getElementById("recipe-0")) */
+
+        React.createElement("section", { id: "baked-salmon" },
+            React.createElement("h1", null, "Baked Salmon"),
+            React.createElement("ul", { "className": "ingredients" },
+                React.createElement("li", null, "1 lb Salmon"),
+                React.createElement("li", null, "1 cup Pine Nuts"),
+                React.createElement("li", null, "2 cups Butter Lettuce"),
+                React.createElement("li", null, "1 Yellow Squash"),
+                React.createElement("li", null, "1/2 cup Olive Oil"),
+                React.createElement("li", null, "3 cloves of Garlic")
+            ),
+            React.createElement("section", { "className": "instructions" },
+                React.createElement("h2", null, "Cooking Instructions"),
+                React.createElement("p", null, "Preheat the oven to 350 degrees."),
+                React.createElement("p", null,
+                    "Spread the olive oil around a glass baking dish."),
+                React.createElement("p", null, "Add the salmon, garlic, and pine..."),
+                React.createElement("p", null, "Bake for 15 minutes."),
+                React.createElement("p", null, "Add the yellow squash and put..."),
+                React.createElement("p", null, "Remove from oven and let cool for 15 ....")
+            )
+        )
+
+
+        var items = [
+            "1 lb Salmon",
+            "1 cup Pine Nuts",
+            "2 cups Butter Lettuce",
+            "1 Yellow Squash",
+            "1/2 cup Olive Oil",
+            "3 cloves of Garlic"
+        ]
+
+        //var ingredientes = React.createElement("ul", { className: "ingredientes" }, items.map((item, i) => React.createElement("p", { key: i }, item)))
+        //ReactDOM.render(ingredientes, document.getElementById('react-container'))
+
+
+        const IngredientsList = React.createClass({
+            display: "IngredientsList", //este sera el nombre del componente
+
+            renderListItem(ingredient, i) {
+                return React.createElement("li", { key: i }, ingredient)
+            },
+            render() {
+                /* return React.createElement("ul", { className: "ingredients" },
+                    React.createElement("li", null, "1 lb Salmon"),
+                    React.createElement("li", null, "1 cup Pine Nuts"),
+                    React.createElement("li", null, "2 cups Butter Lettuce"),
+                    React.createElement("li", null, "1 Yellow Squash"),
+                    React.createElement("li", null, "1/2 cup Olive Oil"),
+                    React.createElement("li", null, "3 cloves of Garlic")
+
+                ) */
+                /* return React.createElement("ul", { className: "ingredients" },
+                    this.props.items.map((ingredient, i) =>
+                        React.createElement("li", { key: i }, ingredient)
+                    )
+                ) */
+
+                return React.createElement("ul", { className: "ingredientes" }, this.props.items.map(this.renderListItem))
+
+
+            }
+        })
+
+        const IngredientsList2 = props =>
+            React.createElement("ul", { className: "ingredients" },
+                props.items.map((ingredient, i) =>
+                    React.createElement("li", { key: i }, ingredient)
+                )
+            )
+
+        const list = React.createElement(IngredientsList, { items }, null)
+
+        ReactDOM.render(
+            list,
+            document.getElementById('react-container')
+        )
+
+    </script>
+</body>
+
+</html>
