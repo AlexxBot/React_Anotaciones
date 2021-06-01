@@ -142,10 +142,55 @@
 
         const list = React.createElement(IngredientsList, { items }, null)
 
-        ReactDOM.render(
+        /* ReactDOM.render(
             list,
             document.getElementById('react-container')
+        ) */
+
+
+        //factories
+        //<h1>Backed Salmon</h1>
+
+        React.createElement('h1', {}, 'Backed Salmon')
+
+        React.DOM.h1(null, 'Backed Salmon')
+
+        React.DOM.ul({ "className": "ingredients" },
+            React.DOM.li(null, "1 lb Salmon"),
+            React.DOM.li(null, "1 cup Pine Nuts"),
+            React.DOM.li(null, "2 cups Butter Lettuce"),
+            React.DOM.li(null, "1 Yellow Squash"),
+            React.DOM.li(null, "1/2 cup Olive Oil"),
+            React.DOM.li(null, "3 cloves of Garlic"))
+
+        var list3 = React.DOM.ul(
+            { className: "ingredients" },
+                items.map((ingredient, key) =>
+                React.DOM.li({ key }, ingredient)
+            )
         )
+
+        /* ReactDOM.render(
+            list3,
+            document.getElementById('react-container')
+        ) */
+
+        const { render } = ReactDOM;
+
+        const IngredientsList3 = ({list}) =>
+         React.createElement('ul', null, 
+            list.map((ingredient, i) => 
+            ReactDOM.li({key: i}, ingredient))
+        )
+
+        const Ingredients = React.createFactory(IngredientsList3)
+
+        render(
+            Ingredients({list}),
+            document.getElementById('react-container')
+        )
+
+
 
     </script>
 </body>
